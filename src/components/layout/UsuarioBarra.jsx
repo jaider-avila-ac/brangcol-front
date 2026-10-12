@@ -1,5 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router'
+import { RUTA_API } from '../../api/cliente'
 import { authApi } from '../../modulos/auth/api'
 import { useSesion } from '../../modulos/auth/useSesion'
 
@@ -30,9 +31,13 @@ export default function UsuarioBarra() {
   return (
     <div className="flex items-center gap-2">
       <Link to="/mi-cuenta" title="Mi cuenta" className="flex items-center gap-3 px-1 py-1 hover:bg-superficie-alt">
-        <span className="flex h-9 w-9 items-center justify-center bg-marca text-sm font-bold text-sobre-marca">
-          {iniciales(sesion.persona)}
-        </span>
+        {sesion.foto ? (
+          <img src={RUTA_API + '/archivos/' + sesion.foto} alt="Foto" className="h-9 w-9 object-cover" />
+        ) : (
+          <span className="flex h-9 w-9 items-center justify-center bg-marca text-sm font-bold text-sobre-marca">
+            {iniciales(sesion.persona)}
+          </span>
+        )}
         <span className="hidden leading-tight lg:block">
           <span className="block max-w-44 truncate text-sm font-semibold text-texto">
             {[sesion.persona.nombres, sesion.persona.apellidos].filter(Boolean).join(' ')}

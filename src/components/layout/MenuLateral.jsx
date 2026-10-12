@@ -1,3 +1,4 @@
+import { RUTA_API } from '../../api/cliente'
 import { menu } from '../../config/menu'
 import { tienePermiso, useSesion } from '../../modulos/auth/useSesion'
 import GrupoContraido from './GrupoContraido'
@@ -17,6 +18,8 @@ function gruposVisibles(sesion) {
 export default function MenuLateral({ contraido, abiertoMovil, onCerrarMovil }) {
   const { data: sesion } = useSesion()
   const grupos = gruposVisibles(sesion)
+  const nombre = sesion ? sesion.empresa.nombreComercial || sesion.empresa.razonSocial : 'BrangCol'
+  const logo = sesion ? sesion.logo : null
   const ancho = contraido ? 'md:w-16' : 'md:w-64'
   const posicion = abiertoMovil ? 'translate-x-0' : '-translate-x-full'
 
@@ -33,8 +36,14 @@ export default function MenuLateral({ contraido, abiertoMovil, onCerrarMovil }) 
         }
       >
         <div className="flex h-16 shrink-0 items-center gap-3 border-b border-lateral-linea px-4">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-lateral-activo text-lg font-black text-sobre-marca">B</span>
-          <span className={'text-lg font-bold tracking-wide ' + (contraido ? 'md:hidden' : '')}>BrangCol</span>
+          {logo ? (
+            <img src={RUTA_API + '/archivos/' + logo} alt="Logo" className="h-8 w-8 shrink-0 bg-superficie object-contain" />
+          ) : (
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-lateral-activo text-lg font-black text-sobre-marca">{nombre[0]}</span>
+          )}
+          <span className={'truncate text-base font-bold tracking-wide ' + (contraido ? 'md:hidden' : '')} title={nombre}>
+            {nombre}
+          </span>
           <button type="button" onClick={onCerrarMovil} className="ml-auto p-1 hover:bg-lateral-hover md:hidden" aria-label="Cerrar menú">
             <i className="bi bi-x-lg" />
           </button>

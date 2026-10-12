@@ -1,5 +1,6 @@
 import Titulo from '../../components/ui/Titulo'
 import CambiarContrasena from './CambiarContrasena'
+import MiFoto from './MiFoto'
 import MisSesiones from './MisSesiones'
 import { useSesion } from './useSesion'
 
@@ -12,6 +13,9 @@ export default function MiCuenta() {
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <section className="border border-borde bg-superficie p-4">
           <h2 className="mb-3 font-semibold text-marca">Datos</h2>
+          <div className="mb-4">
+            <MiFoto />
+          </div>
           <dl className="grid grid-cols-[8rem_1fr] gap-y-2 text-sm">
             <dt className="text-suave">Nombre</dt>
             <dd>{[sesion.persona.nombres, sesion.persona.apellidos].filter(Boolean).join(' ')}</dd>

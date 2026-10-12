@@ -13,6 +13,9 @@ import UsuariosPagina from './modulos/usuarios/UsuariosPagina'
 import FormularioTercero from './modulos/terceros/FormularioTercero'
 import ImportarTerceros from './modulos/terceros/ImportarTerceros'
 import TercerosPagina from './modulos/terceros/TercerosPagina'
+import CategoriasMarcas from './modulos/productos/CategoriasMarcas'
+import FormularioProducto from './modulos/productos/FormularioProducto'
+import ProductosPagina from './modulos/productos/ProductosPagina'
 
 const construidas = [
   { path: 'mi-cuenta', element: <MiCuenta /> },
@@ -22,6 +25,10 @@ const construidas = [
   { path: 'terceros/nuevo', element: <FormularioTercero /> },
   { path: 'terceros/importar', element: <ImportarTerceros /> },
   { path: 'terceros/:codigo', element: <FormularioTercero /> },
+  { path: 'productos', element: <ProductosPagina /> },
+  { path: 'productos/nuevo', element: <FormularioProducto /> },
+  { path: 'productos/categorias', element: <CategoriasMarcas /> },
+  { path: 'productos/:codigo', element: <FormularioProducto /> },
 ]
 
 const rutasConstruidas = construidas.map((ruta) => '/' + ruta.path)

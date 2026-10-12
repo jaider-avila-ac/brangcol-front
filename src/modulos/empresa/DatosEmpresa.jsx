@@ -7,6 +7,7 @@ import Cargando from '../../components/ui/Cargando'
 import Casilla from '../../components/ui/Casilla'
 import { CLAVE_SESION } from '../auth/useSesion'
 import { empresaApi } from './api'
+import LogoEmpresa from './LogoEmpresa'
 import SelectorMunicipio from './SelectorMunicipio'
 
 export default function DatosEmpresa({ puedeEditar }) {
@@ -48,6 +49,8 @@ function Formulario({ empresa, puedeEditar }) {
     <form onSubmit={handleSubmit((valores) => guardar.mutate(valores))} noValidate className="flex flex-col gap-4">
       {guardar.isSuccess && <Alerta tipo="exito">Datos guardados.</Alerta>}
       {guardar.isError && <Alerta>{guardar.error.message}</Alerta>}
+
+      <LogoEmpresa puedeEditar={puedeEditar} />
 
       <section className="grid grid-cols-1 gap-4 border border-borde bg-superficie p-4 md:grid-cols-2">
         <Dato etiqueta={empresa.tipoDocumento} valor={documento} />
