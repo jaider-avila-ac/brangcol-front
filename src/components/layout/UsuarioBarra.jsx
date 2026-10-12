@@ -44,7 +44,7 @@ export default function UsuarioBarra() {
         type="button"
         onClick={salir}
         title="Cerrar sesión"
-        className="flex h-10 w-10 items-center justify-center text-lg text-suave hover:bg-superficie-alt hover:text-peligro"
+        className="flex h-10 w-10 items-center justify-center text-lg text-suave hover:bg-superficie-alt hover:text-marca"
       >
         <i className="bi bi-box-arrow-right" />
       </button>

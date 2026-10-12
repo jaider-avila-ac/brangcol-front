@@ -6,15 +6,6 @@ function aVariable(nombre) {
   return '--p-' + nombre.replace(/[A-Z]/g, (letra) => '-' + letra.toLowerCase())
 }
 
-function mezclar(hexA, hexB, pesoA) {
-  const a = parseInt(hexA.slice(1), 16)
-  const b = parseInt(hexB.slice(1), 16)
-  const canal = (desplazamiento) =>
-    Math.round(((a >> desplazamiento) & 255) * pesoA + ((b >> desplazamiento) & 255) * (1 - pesoA))
-  const valor = (canal(16) << 16) | (canal(8) << 8) | canal(0)
-  return '#' + valor.toString(16).padStart(6, '0')
-}
-
 export function temaGuardado() {
   try {
     const guardado = localStorage.getItem(CLAVE)
@@ -42,12 +33,3 @@ export function aplicarTema(modo) {
   }
 }
 
-// Colores para lo que no usa CSS (graficas); los derivados siguen la misma regla que index.css
-export function coloresTema(modo) {
-  const base = paleta[modo]
-  return {
-    ...base,
-    suave: mezclar(base.texto, base.superficie, 0.62),
-    borde: mezclar(base.superficie, base.texto, 0.84),
-  }
-}

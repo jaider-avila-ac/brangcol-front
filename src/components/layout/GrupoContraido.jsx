@@ -7,7 +7,7 @@ function grupoActivo(grupo, ruta) {
 function claseItem({ isActive }) {
   const base = 'flex items-center px-4 py-2.5 text-sm '
   if (isActive) {
-    return base + 'bg-acento font-semibold text-sobre-acento'
+    return base + 'bg-lateral-activo font-semibold text-sobre-marca'
   }
   return base + 'text-sobre-lateral hover:bg-lateral-linea'
 }
@@ -15,7 +15,7 @@ function claseItem({ isActive }) {
 function claseIcono(activo) {
   return (
     'flex h-11 w-12 items-center justify-center text-lg ' +
-    (activo ? 'bg-acento text-sobre-acento' : 'text-sobre-lateral group-hover:bg-lateral-hover hover:bg-lateral-hover')
+    (activo ? 'bg-lateral-activo text-sobre-marca' : 'text-sobre-lateral group-hover:bg-lateral-hover hover:bg-lateral-hover')
   )
 }
 
@@ -44,7 +44,7 @@ export default function GrupoContraido({ grupo }) {
         <i className={'bi ' + grupo.icono} />
       </div>
       <div className="absolute top-0 left-full z-50 hidden min-w-48 bg-lateral-hover py-1 shadow-xl group-hover:block">
-        <p className="px-4 py-2 text-sm font-semibold text-acento">{grupo.grupo}</p>
+        <p className="px-4 py-2 text-sm font-semibold text-sobre-lateral">{grupo.grupo}</p>
         {grupo.items.map((item) => (
           <NavLink key={item.ruta} to={item.ruta} className={claseItem}>
             {item.texto}

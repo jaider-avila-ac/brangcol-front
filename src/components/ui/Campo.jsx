@@ -8,12 +8,12 @@ export default function Campo({ etiqueta, error, registro, id, ...props }) {
         id={id}
         className={
           'border bg-superficie px-3 py-2 text-sm outline-none focus:border-marca ' +
-          (error ? 'border-peligro' : 'border-borde')
+          (error ? 'border-marca' : 'border-borde')
         }
         {...registro}
         {...props}
       />
-      {error && <span className="text-xs text-peligro">{error}</span>}
+      {error && <span className="text-xs text-marca">{error}</span>}
     </div>
   )
 }

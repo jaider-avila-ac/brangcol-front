@@ -8,7 +8,7 @@ function grupoActivo(grupo, ruta) {
 function claseEnlace({ isActive }) {
   const base = 'flex items-center gap-3 px-3 py-2.5 text-sm '
   if (isActive) {
-    return base + 'bg-acento font-semibold text-sobre-acento'
+    return base + 'bg-lateral-activo font-semibold text-sobre-marca'
   }
   return base + 'text-sobre-lateral hover:bg-lateral-hover'
 }
@@ -35,7 +35,7 @@ export default function GrupoMenu({ grupo, onNavegar }) {
       <button
         type="button"
         onClick={() => setAbierto(!abierto)}
-        className={'flex w-full items-center gap-3 px-3 py-2.5 text-sm hover:bg-lateral-hover ' + (activo ? 'text-acento' : 'text-sobre-lateral')}
+        className={'flex w-full items-center gap-3 px-3 py-2.5 text-sm hover:bg-lateral-hover ' + (activo ? 'font-semibold text-sobre-lateral' : 'text-sobre-lateral')}
       >
         <i className={'bi ' + (abierto ? 'bi-folder2-open' : 'bi-folder2') + ' text-base'} />
         <span className="flex-1 text-left">{grupo.grupo}</span>

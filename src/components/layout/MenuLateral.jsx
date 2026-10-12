@@ -33,7 +33,7 @@ export default function MenuLateral({ contraido, abiertoMovil, onCerrarMovil }) 
         }
       >
         <div className="flex h-16 shrink-0 items-center gap-3 border-b border-lateral-linea px-4">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-acento text-lg font-black text-sobre-acento">B</span>
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-lateral-activo text-lg font-black text-sobre-marca">B</span>
           <span className={'text-lg font-bold tracking-wide ' + (contraido ? 'md:hidden' : '')}>BrangCol</span>
           <button type="button" onClick={onCerrarMovil} className="ml-auto p-1 hover:bg-lateral-hover md:hidden" aria-label="Cerrar menú">
             <i className="bi bi-x-lg" />

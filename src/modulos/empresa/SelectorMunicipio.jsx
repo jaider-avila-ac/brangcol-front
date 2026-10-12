@@ -38,7 +38,7 @@ export default function SelectorMunicipio({ id, etiqueta, valor, nombre, onCambi
         onBlur={() => setTimeout(() => setAbierto(false), 150)}
         className={
           'border bg-superficie px-3 py-2 text-sm outline-none focus:border-marca disabled:bg-fondo ' +
-          (error ? 'border-peligro' : 'border-borde')
+          (error ? 'border-marca' : 'border-borde')
         }
       />
       {abierto && resultados.data && (
@@ -58,7 +58,7 @@ export default function SelectorMunicipio({ id, etiqueta, valor, nombre, onCambi
         </ul>
       )}
       <input type="hidden" value={valor || ''} readOnly />
-      {error && <span className="text-xs text-peligro">{error}</span>}
+      {error && <span className="text-xs text-marca">{error}</span>}
     </div>
   )
 }

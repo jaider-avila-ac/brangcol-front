@@ -9,7 +9,7 @@ export default function Pestanas({ pestanas, activa, onCambiar }) {
           className={
             'flex shrink-0 items-center gap-2 border-b-2 px-4 py-2.5 text-sm ' +
             (activa === pestana.id
-              ? 'border-acento font-semibold text-marca'
+              ? 'border-marca font-semibold text-marca'
               : 'border-transparent text-suave hover:text-texto')
           }
         >

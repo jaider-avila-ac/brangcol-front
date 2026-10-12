@@ -1,7 +1,6 @@
 const VARIANTES = {
   primario: 'bg-marca text-sobre-marca hover:bg-marca-hover disabled:bg-suave',
   secundario: 'border border-borde bg-superficie text-texto hover:bg-superficie-alt disabled:text-suave',
-  peligro: 'bg-peligro text-superficie hover:bg-peligro-hover disabled:bg-suave',
 }
 
 export default function Boton({ variante = 'primario', cargando = false, icono, children, className = '', ...props }) {

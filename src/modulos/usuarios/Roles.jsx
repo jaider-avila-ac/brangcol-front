@@ -35,7 +35,7 @@ export default function Roles() {
             <ul className="grid grid-cols-1 gap-x-6 gap-y-1 border-t border-borde bg-fondo px-4 py-3 text-sm md:grid-cols-2">
               {rol.permisos.map((permiso) => (
                 <li key={permiso.codigo} className="flex items-start gap-2">
-                  <i className="bi bi-check2 text-exito" />
+                  <i className="bi bi-check2 text-marca" />
                   {permiso.descripcion}
                 </li>
               ))}
