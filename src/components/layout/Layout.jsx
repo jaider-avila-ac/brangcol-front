@@ -27,16 +27,23 @@ export default function Layout() {
     }
   }
 
+  function alPresionarMenu() {
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      alternarContraido()
+      return
+    }
+    setAbiertoMovil(true)
+  }
+
   return (
     <div className="flex h-full">
       <MenuLateral
         contraido={contraido}
         abiertoMovil={abiertoMovil}
-        onAlternar={alternarContraido}
         onCerrarMovil={() => setAbiertoMovil(false)}
       />
       <div className="flex min-w-0 flex-1 flex-col">
-        <BarraSuperior onMenu={() => setAbiertoMovil(true)} />
+        <BarraSuperior contraido={contraido} onMenu={alPresionarMenu} />
         <main className="min-h-0 flex-1 overflow-y-auto p-4 md:p-6">
           <Outlet />
         </main>

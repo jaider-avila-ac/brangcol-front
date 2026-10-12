@@ -1,8 +1,4 @@
+// El nombre de la pantalla ya esta en el encabezado; aqui solo va la frase que la explica
 export default function Titulo({ children, descripcion }) {
-  return (
-    <div className="mb-5 border-b border-borde pb-3">
-      <h1 className="text-xl font-semibold text-marca">{children}</h1>
-      {descripcion && <p className="mt-1 text-sm text-suave">{descripcion}</p>}
-    </div>
-  )
+  return <p className="mb-4 text-sm text-suave">{descripcion || children}</p>
 }

@@ -7,9 +7,9 @@ export default function PantallaPublica({ titulo, subtitulo, children }) {
           <span className="text-2xl font-bold tracking-wide">BrangCol</span>
         </div>
         <div className="flex flex-col gap-4">
-          <p className="text-3xl leading-tight font-semibold">Ventas, inventario y cartera de su negocio en un solo lugar.</p>
+          <p className="text-3xl leading-tight font-semibold">Las ventas de su negocio, fáciles de llevar.</p>
           <div className="h-1 w-16 bg-acento" />
-          <p className="text-lateral-suave">Factura, cobra y controla sus existencias desde cualquier equipo.</p>
+          <p className="text-lateral-suave">Venda, cobre y revise su inventario desde cualquier equipo.</p>
         </div>
         <p className="text-xs text-lateral-suave">BrandingCol</p>
       </div>

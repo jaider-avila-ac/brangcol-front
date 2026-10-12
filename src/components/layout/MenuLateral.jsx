@@ -14,7 +14,7 @@ function gruposVisibles(sesion) {
   return grupos
 }
 
-export default function MenuLateral({ contraido, abiertoMovil, onAlternar, onCerrarMovil }) {
+export default function MenuLateral({ contraido, abiertoMovil, onCerrarMovil }) {
   const { data: sesion } = useSesion()
   const grupos = gruposVisibles(sesion)
   const ancho = contraido ? 'md:w-16' : 'md:w-64'
@@ -56,16 +56,6 @@ export default function MenuLateral({ contraido, abiertoMovil, onAlternar, onCer
             ),
           )}
         </nav>
-
-        <button
-          type="button"
-          onClick={onAlternar}
-          className="hidden h-12 shrink-0 items-center gap-3 border-t border-lateral-linea px-5 text-sm text-lateral-suave hover:bg-lateral-hover hover:text-sobre-lateral md:flex"
-          title={contraido ? 'Expandir menú' : 'Contraer menú'}
-        >
-          <i className={'bi ' + (contraido ? 'bi-chevron-double-right' : 'bi-chevron-double-left')} />
-          {!contraido && <span>Contraer menú</span>}
-        </button>
       </aside>
     </>
   )

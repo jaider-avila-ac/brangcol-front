@@ -10,18 +10,18 @@ export default function GraficaVentas() {
   const colores = coloresTema(modo)
   const opciones = opcionesBase(colores)
   opciones.scales.y.ticks.callback = (valor) => PESOS.format(valor)
-  opciones.plugins.tooltip.callbacks = { label: (item) => item.dataset.label + ': ' + PESOS.format(item.raw) }
+  opciones.plugins.legend.display = false
+  opciones.plugins.tooltip.callbacks = { label: (item) => PESOS.format(item.raw) }
 
   const datos = {
     labels: ventasPorDia.dias,
     datasets: [
-      { label: 'Facturado', data: ventasPorDia.ventas, backgroundColor: colores.marca, barPercentage: 0.8 },
-      { label: 'Cobrado', data: ventasPorDia.cobrado, backgroundColor: colores.acento, barPercentage: 0.8 },
+      { label: 'Vendido', data: ventasPorDia.ventas, backgroundColor: colores.marca, barPercentage: 0.7 },
     ],
   }
 
   return (
-    <Tarjeta titulo="Ventas de los últimos 14 días" descripcion="Lo facturado frente a lo que ya entró a caja" alto="h-96">
+    <Tarjeta titulo="Ventas de los últimos 14 días" alto="h-96">
       <Bar key={modo} data={datos} options={opciones} />
     </Tarjeta>
   )

@@ -27,7 +27,7 @@ export default function GraficaMediosPago() {
   }
 
   return (
-    <Tarjeta titulo="Ventas por medio de pago" descripcion="Porcentaje del mes">
+    <Tarjeta titulo="¿Cómo le pagan?" descripcion="Este mes">
       <Doughnut key={modo} data={datos} options={opciones} />
     </Tarjeta>
   )

@@ -1,7 +1,8 @@
+// Un grupo con una sola opcion se muestra como enlace directo; con varias, como carpeta
 export const menu = [
   {
-    grupo: 'Principal',
-    icono: 'bi-grid-1x2',
+    grupo: 'Inicio',
+    icono: 'bi-house',
     items: [{ ruta: '/', texto: 'Inicio', icono: 'bi-house' }],
   },
   {
@@ -14,7 +15,7 @@ export const menu = [
     ],
   },
   {
-    grupo: 'Contactos',
+    grupo: 'Clientes',
     icono: 'bi-people',
     items: [{ ruta: '/terceros', texto: 'Clientes y proveedores', icono: 'bi-people', permiso: 'terceros:tercero:consultar' }],
   },
@@ -36,7 +37,7 @@ export const menu = [
     ],
   },
   {
-    grupo: 'Análisis',
+    grupo: 'Reportes',
     icono: 'bi-bar-chart',
     items: [{ ruta: '/reportes', texto: 'Reportes', icono: 'bi-bar-chart', permiso: 'reportes:general:consultar' }],
   },
