@@ -28,7 +28,9 @@ async function pedir(metodo, ruta, cuerpo) {
     credentials: 'include',
     headers: { Accept: 'application/json' },
   }
-  if (cuerpo !== undefined) {
+  if (cuerpo instanceof FormData) {
+    opciones.body = cuerpo
+  } else if (cuerpo !== undefined) {
     opciones.headers['Content-Type'] = 'application/json'
     opciones.body = JSON.stringify(cuerpo)
   }
@@ -64,4 +66,7 @@ export const api = {
   put: (ruta, cuerpo) => pedir('PUT', ruta, cuerpo),
   patch: (ruta, cuerpo) => pedir('PATCH', ruta, cuerpo),
   delete: (ruta) => pedir('DELETE', ruta),
+  subir: (ruta, formulario) => pedir('POST', ruta, formulario),
 }
+
+export const RUTA_API = BASE

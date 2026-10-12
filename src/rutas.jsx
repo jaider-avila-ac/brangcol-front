@@ -10,11 +10,18 @@ import EnConstruccion from './modulos/inicio/EnConstruccion'
 import NoEncontrado from './modulos/inicio/NoEncontrado'
 import AceptarInvitacion from './modulos/usuarios/AceptarInvitacion'
 import UsuariosPagina from './modulos/usuarios/UsuariosPagina'
+import FormularioTercero from './modulos/terceros/FormularioTercero'
+import ImportarTerceros from './modulos/terceros/ImportarTerceros'
+import TercerosPagina from './modulos/terceros/TercerosPagina'
 
 const construidas = [
   { path: 'mi-cuenta', element: <MiCuenta /> },
   { path: 'empresa', element: <EmpresaPagina /> },
   { path: 'usuarios', element: <UsuariosPagina /> },
+  { path: 'terceros', element: <TercerosPagina /> },
+  { path: 'terceros/nuevo', element: <FormularioTercero /> },
+  { path: 'terceros/importar', element: <ImportarTerceros /> },
+  { path: 'terceros/:codigo', element: <FormularioTercero /> },
 ]
 
 const rutasConstruidas = construidas.map((ruta) => '/' + ruta.path)
