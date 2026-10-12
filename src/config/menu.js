@@ -10,5 +10,6 @@ export const menu = [
   { ruta: '/cajas', texto: 'Cajas', icono: 'bi-cash-stack', permiso: 'ventas:turno:gestionar' },
   { ruta: '/movimientos', texto: 'Ingresos y gastos', icono: 'bi-arrow-left-right', permiso: 'tesoreria:movimiento:consultar' },
   { ruta: '/reportes', texto: 'Reportes', icono: 'bi-bar-chart', permiso: 'reportes:general:consultar' },
-  { ruta: '/configuracion', texto: 'Configuración', icono: 'bi-gear', permiso: 'plataforma:empresa:consultar' },
+  { ruta: '/usuarios', texto: 'Usuarios', icono: 'bi-person-badge', permiso: 'plataforma:usuario:consultar' },
+  { ruta: '/empresa', texto: 'Empresa', icono: 'bi-building', permiso: 'plataforma:empresa:consultar' },
 ]
