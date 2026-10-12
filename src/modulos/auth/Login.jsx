@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { useLocation, useNavigate } from 'react-router'
+import PantallaPublica from '../../components/layout/PantallaPublica'
 import Alerta from '../../components/ui/Alerta'
 import Boton from '../../components/ui/Boton'
 import Campo from '../../components/ui/Campo'
@@ -39,14 +40,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-full items-center justify-center bg-fondo p-4">
-      <div className="w-full max-w-sm border border-borde bg-white">
-        <div className="bg-marca px-6 py-5 text-white">
-          <h1 className="text-xl font-semibold">BrangCol</h1>
-          <p className="text-sm text-marca-claro">Inicie sesión para continuar</p>
-        </div>
-
-        <div className="flex flex-col gap-4 p-6">
+    <PantallaPublica titulo="Iniciar sesión" subtitulo="Entre con su correo y contraseña">
           {vencida && !error && <Alerta tipo="info">Su sesión terminó. Inicie sesión de nuevo.</Alerta>}
           {error && <Alerta>{error}</Alerta>}
 
@@ -76,9 +70,7 @@ export default function Login() {
               </Boton>
             </form>
           )}
-        </div>
-      </div>
-    </div>
+    </PantallaPublica>
   )
 }
 
@@ -93,7 +85,7 @@ function ElegirEmpresa({ empresas, enviando, onElegir, onVolver }) {
               type="button"
               disabled={enviando}
               onClick={() => onElegir(empresa.codigo)}
-              className="flex w-full items-center justify-between px-3 py-2.5 text-left hover:bg-marca-claro"
+              className="flex w-full items-center justify-between px-3 py-2.5 text-left hover:bg-superficie-alt"
             >
               <span>
                 <span className="block text-sm font-medium">{empresa.razonSocial}</span>

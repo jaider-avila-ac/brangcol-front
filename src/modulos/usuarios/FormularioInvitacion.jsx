@@ -20,7 +20,7 @@ export default function FormularioInvitacion({ onCreada }) {
   const errores = formState.errors
 
   return (
-    <section className="border border-borde bg-white p-4">
+    <section className="border border-borde bg-superficie p-4">
       <h2 className="mb-3 font-semibold text-marca">Invitar a una persona</h2>
       <form onSubmit={handleSubmit((valores) => invitar.mutate(valores))} noValidate className="flex flex-col gap-3">
         {invitar.isError && <Alerta>{invitar.error.message}</Alerta>}

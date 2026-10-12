@@ -15,13 +15,13 @@ export default function Roles() {
   }
 
   return (
-    <ul className="divide-y divide-borde border border-borde bg-white">
+    <ul className="divide-y divide-borde border border-borde bg-superficie">
       {roles.data.map((rol) => (
         <li key={rol.codigo}>
           <button
             type="button"
             onClick={() => setAbierto(abierto === rol.codigo ? null : rol.codigo)}
-            className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-fondo"
+            className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-superficie-alt"
           >
             <i className="bi bi-shield-check text-lg text-marca" />
             <span className="min-w-0 flex-1">

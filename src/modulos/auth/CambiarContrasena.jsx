@@ -26,7 +26,7 @@ export default function CambiarContrasena() {
   }
 
   return (
-    <section className="border border-borde bg-white p-4">
+    <section className="border border-borde bg-superficie p-4">
       <h2 className="mb-3 font-semibold text-marca">Cambiar contraseña</h2>
       <form className="flex flex-col gap-3" onSubmit={handleSubmit(enviar)} noValidate>
         {cambio.isSuccess && (

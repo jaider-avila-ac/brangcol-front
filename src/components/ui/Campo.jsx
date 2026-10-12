@@ -7,7 +7,7 @@ export default function Campo({ etiqueta, error, registro, id, ...props }) {
       <input
         id={id}
         className={
-          'border bg-white px-3 py-2 text-sm outline-none focus:border-marca ' +
+          'border bg-superficie px-3 py-2 text-sm outline-none focus:border-marca ' +
           (error ? 'border-peligro' : 'border-borde')
         }
         {...registro}

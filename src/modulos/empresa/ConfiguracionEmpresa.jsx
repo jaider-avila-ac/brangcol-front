@@ -69,7 +69,7 @@ function Formulario({ inicial, puedeEditar }) {
 
 function Seccion({ titulo, children }) {
   return (
-    <section className="border border-borde bg-white p-4">
+    <section className="border border-borde bg-superficie p-4">
       <h2 className="mb-3 font-semibold text-marca">{titulo}</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">{children}</div>
     </section>

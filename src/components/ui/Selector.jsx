@@ -9,7 +9,7 @@ export default function Selector({ etiqueta, error, registro, id, opciones, vaci
       <select
         id={id}
         className={
-          'border bg-white px-3 py-2 text-sm outline-none focus:border-marca ' + (error ? 'border-peligro' : 'border-borde')
+          'border bg-superficie px-3 py-2 text-sm outline-none focus:border-marca ' + (error ? 'border-peligro' : 'border-borde')
         }
         {...registro}
         {...props}

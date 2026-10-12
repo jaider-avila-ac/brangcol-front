@@ -11,7 +11,7 @@ export default function EnlaceInvitacion({ invitacion, onCerrar }) {
   }
 
   return (
-    <section className="flex flex-col gap-3 border border-borde bg-white p-4">
+    <section className="flex flex-col gap-3 border border-borde bg-superficie p-4">
       <Alerta tipo={invitacion.correoEnviado ? 'exito' : 'info'}>
         {invitacion.correoEnviado
           ? 'Se envió la invitación a ' + invitacion.correo + '. También puede compartir el enlace.'

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router'
 import Layout from './components/layout/Layout'
-import { menu } from './config/menu'
+import { itemsDelMenu } from './config/menu'
 import Login from './modulos/auth/Login'
 import MiCuenta from './modulos/auth/MiCuenta'
 import RutaProtegida from './modulos/auth/RutaProtegida'
@@ -19,7 +19,7 @@ const construidas = [
 
 const rutasConstruidas = construidas.map((ruta) => '/' + ruta.path)
 
-const pendientes = menu
+const pendientes = itemsDelMenu()
   .filter((item) => item.ruta !== '/' && !rutasConstruidas.includes(item.ruta))
   .map((item) => ({ path: item.ruta.substring(1), element: <EnConstruccion /> }))
 

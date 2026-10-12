@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
+import PantallaPublica from '../../components/layout/PantallaPublica'
 import Alerta from '../../components/ui/Alerta'
 import Boton from '../../components/ui/Boton'
 import Campo from '../../components/ui/Campo'
@@ -31,15 +32,9 @@ export default function AceptarInvitacion() {
   }
 
   return (
-    <div className="flex min-h-full items-center justify-center bg-fondo p-4">
-      <div className="w-full max-w-md border border-borde bg-white">
-        <div className="bg-marca px-6 py-5 text-white">
-          <h1 className="text-xl font-semibold">BrangCol</h1>
-          <p className="text-sm text-marca-claro">Invitación</p>
-        </div>
-        <div className="flex flex-col gap-4 p-6">{contenido}</div>
-      </div>
-    </div>
+    <PantallaPublica titulo="Invitación" subtitulo="Cree su acceso a BrangCol">
+      {contenido}
+    </PantallaPublica>
   )
 }
 
@@ -54,7 +49,7 @@ function Formulario({ token, invitacion }) {
     return (
       <>
         <Alerta tipo="exito">Listo. Ya puede entrar a {invitacion.empresa} con su correo y contraseña.</Alerta>
-        <Link to="/login" className="bg-marca px-4 py-2 text-center text-sm text-white hover:bg-marca-oscuro">
+        <Link to="/login" className="bg-marca px-4 py-2 text-center text-sm text-sobre-marca hover:bg-marca-hover">
           Iniciar sesión
         </Link>
       </>

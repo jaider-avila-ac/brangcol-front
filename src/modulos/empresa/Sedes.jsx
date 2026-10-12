@@ -26,9 +26,9 @@ export default function Sedes({ puedeEditar }) {
       )}
       {editando && <FormularioSede sede={editando.nueva ? null : editando} onCerrar={() => setEditando(null)} />}
 
-      <div className="overflow-x-auto border border-borde bg-white">
+      <div className="overflow-x-auto border border-borde bg-superficie">
         <table className="w-full text-sm">
-          <thead className="bg-fondo text-left text-suave">
+          <thead className="bg-superficie-alt text-left text-suave">
             <tr>
               <th className="px-3 py-2 font-medium">Nombre</th>
               <th className="px-3 py-2 font-medium">Dirección</th>
@@ -42,7 +42,7 @@ export default function Sedes({ puedeEditar }) {
               <tr key={sede.codigo}>
                 <td className="px-3 py-2">
                   {sede.nombre}
-                  {sede.esPrincipal && <span className="ml-2 bg-marca-claro px-1.5 py-0.5 text-xs text-marca">Principal</span>}
+                  {sede.esPrincipal && <span className="ml-2 bg-marca px-1.5 py-0.5 text-xs text-sobre-marca">Principal</span>}
                 </td>
                 <td className="px-3 py-2">{sede.direccion}</td>
                 <td className="px-3 py-2">{sede.municipio.nombre}</td>

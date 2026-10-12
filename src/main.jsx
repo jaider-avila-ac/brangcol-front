@@ -2,11 +2,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from 'react-router'
+import ProveedorTema from './components/tema/ProveedorTema'
 import { iniciarSentry, LimiteErrores } from './config/sentry'
+import { aplicarTema, temaGuardado } from './config/tema'
 import ErrorPantalla from './modulos/inicio/ErrorPantalla'
 import { rutas } from './rutas'
 import './index.css'
 
+aplicarTema(temaGuardado())
 iniciarSentry()
 
 const consultas = new QueryClient({
@@ -22,9 +25,11 @@ const consultas = new QueryClient({
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <LimiteErrores fallback={<ErrorPantalla />}>
-      <QueryClientProvider client={consultas}>
-        <RouterProvider router={rutas} />
-      </QueryClientProvider>
+      <ProveedorTema>
+        <QueryClientProvider client={consultas}>
+          <RouterProvider router={rutas} />
+        </QueryClientProvider>
+      </ProveedorTema>
     </LimiteErrores>
   </StrictMode>,
 )

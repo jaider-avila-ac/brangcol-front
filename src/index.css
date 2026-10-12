@@ -1,19 +1,39 @@
 @import "tailwindcss";
 
+/*
+  Los colores base salen de src/config/paleta.json (modo claro y oscuro).
+  Aqui solo se derivan tonos solidos a partir de ellos; para cambiar los colores
+  del programa se edita unicamente paleta.json.
+*/
 @theme {
   --radius-*: initial;
   --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
 
-  --color-marca: #1f3a5f;
-  --color-marca-oscuro: #152a46;
-  --color-marca-claro: #e8eef5;
-  --color-acento: #d97706;
-  --color-fondo: #f4f5f7;
-  --color-borde: #d9dde3;
-  --color-texto: #1f2933;
-  --color-suave: #6b7280;
-  --color-exito: #15803d;
-  --color-peligro: #b91c1c;
+  --color-marca: var(--p-marca);
+  --color-marca-hover: color-mix(in srgb, var(--p-marca) 82%, #000000);
+  --color-sobre-marca: var(--p-sobre-marca);
+
+  --color-lateral: var(--p-lateral);
+  --color-lateral-hover: color-mix(in srgb, var(--p-lateral) 86%, #ffffff);
+  --color-lateral-linea: color-mix(in srgb, var(--p-lateral) 78%, #ffffff);
+  --color-sobre-lateral: var(--p-sobre-lateral);
+  --color-lateral-suave: color-mix(in srgb, var(--p-sobre-lateral) 62%, var(--p-lateral));
+
+  --color-acento: var(--p-acento);
+  --color-acento-hover: color-mix(in srgb, var(--p-acento) 85%, #000000);
+  --color-sobre-acento: var(--p-sobre-acento);
+
+  --color-fondo: var(--p-fondo);
+  --color-superficie: var(--p-superficie);
+  --color-superficie-alt: color-mix(in srgb, var(--p-superficie) 93%, var(--p-texto));
+  --color-borde: color-mix(in srgb, var(--p-superficie) 84%, var(--p-texto));
+  --color-texto: var(--p-texto);
+  --color-suave: color-mix(in srgb, var(--p-texto) 62%, var(--p-superficie));
+
+  --color-exito: var(--p-exito);
+  --color-peligro: var(--p-peligro);
+  --color-peligro-hover: color-mix(in srgb, var(--p-peligro) 82%, #000000);
+  --color-aviso: var(--p-aviso);
 }
 
 @layer base {
@@ -32,5 +52,23 @@
   body {
     background-color: var(--color-fondo);
     color: var(--color-texto);
+  }
+
+  input,
+  select,
+  textarea {
+    color: var(--color-texto);
+  }
+}
+
+@layer components {
+  .barra-lateral {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-lateral-linea) var(--color-lateral);
+  }
+
+  main {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-borde) var(--color-fondo);
   }
 }

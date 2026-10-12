@@ -37,19 +37,19 @@ export default function SelectorMunicipio({ id, etiqueta, valor, nombre, onCambi
         }}
         onBlur={() => setTimeout(() => setAbierto(false), 150)}
         className={
-          'border bg-white px-3 py-2 text-sm outline-none focus:border-marca disabled:bg-fondo ' +
+          'border bg-superficie px-3 py-2 text-sm outline-none focus:border-marca disabled:bg-fondo ' +
           (error ? 'border-peligro' : 'border-borde')
         }
       />
       {abierto && resultados.data && (
-        <ul className="absolute top-full right-0 left-0 z-20 max-h-56 overflow-y-auto border border-borde bg-white shadow-md">
+        <ul className="absolute top-full right-0 left-0 z-20 max-h-56 overflow-y-auto border border-borde bg-superficie shadow-md">
           {resultados.data.length === 0 && <li className="px-3 py-2 text-sm text-suave">Sin resultados</li>}
           {resultados.data.map((municipio) => (
             <li key={municipio.codigo}>
               <button
                 type="button"
                 onMouseDown={() => elegir(municipio)}
-                className="w-full px-3 py-2 text-left text-sm hover:bg-marca-claro"
+                className="w-full px-3 py-2 text-left text-sm hover:bg-superficie-alt"
               >
                 {municipio.nombre} <span className="text-suave">({municipio.departamento})</span>
               </button>

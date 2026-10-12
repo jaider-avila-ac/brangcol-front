@@ -27,7 +27,7 @@ export default function Invitaciones({ puedeGestionar }) {
       {puedeGestionar && <FormularioInvitacion onCreada={alCrear} />}
       {creada && <EnlaceInvitacion invitacion={creada} onCerrar={() => setCreada(null)} />}
 
-      <section className="border border-borde bg-white p-4">
+      <section className="border border-borde bg-superficie p-4">
         <h2 className="mb-3 font-semibold text-marca">Invitaciones pendientes</h2>
         {(pendientes.error || revocar.error) && <Alerta>{(pendientes.error || revocar.error).message}</Alerta>}
         {pendientes.isPending ? (
@@ -50,7 +50,7 @@ export default function Invitaciones({ puedeGestionar }) {
                     type="button"
                     disabled={revocar.isPending}
                     onClick={() => revocar.mutate(invitacion.codigo)}
-                    className="border border-borde px-2 py-1 text-xs hover:bg-fondo"
+                    className="border border-borde px-2 py-1 text-xs hover:bg-superficie-alt"
                   >
                     Anular
                   </button>

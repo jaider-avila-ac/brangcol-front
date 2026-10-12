@@ -10,7 +10,7 @@ export default function MiCuenta() {
     <>
       <Titulo descripcion="Sus datos, su contraseña y los dispositivos donde tiene sesión abierta">Mi cuenta</Titulo>
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-        <section className="border border-borde bg-white p-4">
+        <section className="border border-borde bg-superficie p-4">
           <h2 className="mb-3 font-semibold text-marca">Datos</h2>
           <dl className="grid grid-cols-[8rem_1fr] gap-y-2 text-sm">
             <dt className="text-suave">Nombre</dt>

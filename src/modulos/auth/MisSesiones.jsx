@@ -27,7 +27,7 @@ export default function MisSesiones() {
   const error = sesiones.error || cerrarUna.error || cerrarOtras.error
 
   return (
-    <section className="border border-borde bg-white p-4">
+    <section className="border border-borde bg-superficie p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-semibold text-marca">Sesiones abiertas</h2>
         {hayOtras && (
@@ -47,7 +47,7 @@ export default function MisSesiones() {
               <div className="min-w-0 flex-1">
                 <p className="font-medium">
                   {dispositivo(sesion.dispositivo)}
-                  {sesion.actual && <span className="ml-2 bg-marca-claro px-1.5 py-0.5 text-xs text-marca">Esta sesión</span>}
+                  {sesion.actual && <span className="ml-2 bg-marca px-1.5 py-0.5 text-xs text-sobre-marca">Esta sesión</span>}
                 </p>
                 <p className="text-xs text-suave">
                   {sesion.empresa} · IP {sesion.ip} · última actividad {FECHA.format(new Date(sesion.ultimaActividad))}

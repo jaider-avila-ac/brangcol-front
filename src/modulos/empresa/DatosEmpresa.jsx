@@ -49,7 +49,7 @@ function Formulario({ empresa, puedeEditar }) {
       {guardar.isSuccess && <Alerta tipo="exito">Datos guardados.</Alerta>}
       {guardar.isError && <Alerta>{guardar.error.message}</Alerta>}
 
-      <section className="grid grid-cols-1 gap-4 border border-borde bg-white p-4 md:grid-cols-2">
+      <section className="grid grid-cols-1 gap-4 border border-borde bg-superficie p-4 md:grid-cols-2">
         <Dato etiqueta={empresa.tipoDocumento} valor={documento} />
         <Dato etiqueta="Estado" valor={empresa.estado === 'ACTIVA' ? 'Activa' : empresa.estado} />
         <Campo

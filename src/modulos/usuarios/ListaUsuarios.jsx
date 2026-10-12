@@ -26,9 +26,9 @@ export default function ListaUsuarios({ puedeGestionar }) {
   return (
     <div className="flex flex-col gap-3">
       {error && <Alerta>{error.message}</Alerta>}
-      <div className="overflow-x-auto border border-borde bg-white">
+      <div className="overflow-x-auto border border-borde bg-superficie">
         <table className="w-full text-sm">
-          <thead className="bg-fondo text-left text-suave">
+          <thead className="bg-superficie-alt text-left text-suave">
             <tr>
               <th className="px-3 py-2 font-medium">Nombre</th>
               <th className="px-3 py-2 font-medium">Rol</th>
@@ -60,7 +60,7 @@ export default function ListaUsuarios({ puedeGestionar }) {
                     ) : (
                       <span>
                         {usuario.rol.nombre}
-                        {usuario.esPropietario && <span className="ml-2 bg-marca-claro px-1.5 py-0.5 text-xs text-marca">Principal</span>}
+                        {usuario.esPropietario && <span className="ml-2 bg-marca px-1.5 py-0.5 text-xs text-sobre-marca">Principal</span>}
                       </span>
                     )}
                   </td>
@@ -71,7 +71,7 @@ export default function ListaUsuarios({ puedeGestionar }) {
                         type="button"
                         disabled={cambiarEstado.isPending}
                         onClick={() => cambiarEstado.mutate({ codigo: usuario.codigo, activo: !usuario.activo })}
-                        className={'border px-2 py-1 text-xs ' + (usuario.activo ? 'border-borde hover:bg-fondo' : 'border-marca text-marca hover:bg-marca-claro')}
+                        className={'border px-2 py-1 text-xs ' + (usuario.activo ? 'border-borde hover:bg-superficie-alt' : 'border-marca text-marca hover:bg-superficie-alt')}
                       >
                         {usuario.activo ? 'Desactivar' : 'Activar'}
                       </button>

@@ -31,7 +31,7 @@ export default function FormularioSede({ sede, onCerrar }) {
     <form
       onSubmit={handleSubmit((valores) => guardar.mutate(valores))}
       noValidate
-      className="flex flex-col gap-4 border border-borde bg-white p-4"
+      className="flex flex-col gap-4 border border-borde bg-superficie p-4"
     >
       <h2 className="font-semibold text-marca">{sede ? 'Editar sede' : 'Nueva sede'}</h2>
       {guardar.isError && <Alerta>{guardar.error.message}</Alerta>}

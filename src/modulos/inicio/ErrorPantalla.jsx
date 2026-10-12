@@ -7,7 +7,7 @@ export default function ErrorPantalla() {
       <button
         type="button"
         onClick={() => window.location.reload()}
-        className="bg-marca px-4 py-2 text-sm text-white hover:bg-marca-oscuro"
+        className="bg-marca px-4 py-2 text-sm text-sobre-marca hover:bg-marca-hover"
       >
         Recargar
       </button>
