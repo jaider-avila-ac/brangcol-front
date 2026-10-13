@@ -24,7 +24,6 @@ export const menu = [
     icono: 'bi-box-seam',
     items: [
       { ruta: '/productos', texto: 'Productos y servicios', icono: 'bi-box-seam', permiso: 'productos:item:consultar' },
-      { ruta: '/productos/recetas', texto: 'Recetas y combos', icono: 'bi-diagram-3', permiso: 'productos:item:consultar' },
       { ruta: '/productos/categorias', texto: 'Categorías y marcas', icono: 'bi-tags', permiso: 'productos:item:consultar' },
     ],
   },
@@ -32,7 +31,7 @@ export const menu = [
     grupo: 'Inventario',
     icono: 'bi-boxes',
     items: [
-      { ruta: '/inventario', texto: 'Existencias', icono: 'bi-boxes', permiso: 'inventario:existencia:consultar' },
+      { ruta: '/inventario', texto: 'Movimientos', icono: 'bi-arrow-left-right', permiso: 'inventario:existencia:consultar' },
       { ruta: '/compras', texto: 'Compras', icono: 'bi-cart3', permiso: 'compras:compra:consultar' },
     ],
   },
@@ -69,7 +68,7 @@ export function itemsDelMenu() {
   return items
 }
 
-// La opcion del menu que corresponde a una ruta: la mas especifica (/productos/recetas antes que /productos)
+// La opcion del menu que corresponde a una ruta: la mas especifica (/productos/categorias antes que /productos)
 export function ubicacion(ruta) {
   if (ruta === '/mi-cuenta') {
     return { grupo: 'Cuenta', texto: 'Mi cuenta' }

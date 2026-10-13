@@ -1,53 +1,61 @@
 import { useState } from 'react'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate, useSearchParams } from 'react-router'
 import Alerta from '../../components/ui/Alerta'
 import Cargando from '../../components/ui/Cargando'
 import Paginacion from '../../components/ui/Paginacion'
 import Titulo from '../../components/ui/Titulo'
 import { useDemora } from '../../components/ui/useDemora'
-import { pesos } from '../../config/formato'
 import { tienePermiso, useSesion } from '../auth/useSesion'
 import { productosApi } from './api'
-import { FILTROS_TIPO, nombreTipo } from './tipos'
+import FilaProducto from './FilaProducto'
+import ResumenInventario from './ResumenInventario'
+import { FILTROS_TIPO } from './tipos'
 import { useCategorias } from './useCatalogosProducto'
 
+// Una sola lista de productos: que es, lo que lleva, cuanto hay y a cuanto se vende
 export default function ProductosPagina() {
   const { data: sesion } = useSesion()
   const navegar = useNavigate()
+  const [parametros] = useSearchParams()
   const categorias = useCategorias()
   const [texto, setTexto] = useState('')
   const [tipo, setTipo] = useState('')
   const [categoria, setCategoria] = useState('')
+  const [soloBajoMinimo, setSoloBajoMinimo] = useState(parametros.get('porAcabarse') === '1')
   const [pagina, setPagina] = useState(0)
   const busqueda = useDemora(texto)
-  const filtro = { texto: busqueda, tipo, categoria, pagina }
+  const filtro = { texto: busqueda, tipo, categoria, soloBajoMinimo, pagina }
   const productos = useQuery({
     queryKey: ['productos', filtro],
     queryFn: () => productosApi.buscar(filtro),
     placeholderData: keepPreviousData,
   })
   const puedeGestionar = tienePermiso(sesion, 'productos:item:gestionar')
+  const veExistencias = tienePermiso(sesion, 'inventario:existencia:consultar')
   const claseFiltro = 'border border-borde bg-superficie px-3 py-2 text-sm outline-none focus:border-marca'
+
+  function filtrar(cambio) {
+    cambio()
+    setPagina(0)
+  }
 
   return (
     <>
-      <Titulo>Lo que vende, los servicios que presta y los insumos que usa</Titulo>
+      <Titulo>Lo que vende, los servicios que presta y los insumos que usa: lo que lleva cada uno y cuánto hay</Titulo>
+      {veExistencias && <ResumenInventario onPorAcabarse={() => filtrar(() => setSoloBajoMinimo(true))} />}
 
       <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
         <div className="relative flex-1">
           <i className="bi bi-search absolute top-1/2 left-3 -translate-y-1/2 text-suave" />
           <input
             value={texto}
-            onChange={(evento) => {
-              setTexto(evento.target.value)
-              setPagina(0)
-            }}
+            onChange={(evento) => filtrar(() => setTexto(evento.target.value))}
             placeholder="Buscar por nombre, código o código de barras"
             className="w-full border border-borde bg-superficie py-2 pr-3 pl-9 text-sm outline-none focus:border-marca"
           />
         </div>
-        <select value={tipo} onChange={(evento) => { setTipo(evento.target.value); setPagina(0) }} className={claseFiltro}>
+        <select value={tipo} onChange={(evento) => filtrar(() => setTipo(evento.target.value))} className={claseFiltro}>
           <option value="">Todos los tipos</option>
           {FILTROS_TIPO.map((t) => (
             <option key={t.valor} value={t.valor}>
@@ -55,7 +63,7 @@ export default function ProductosPagina() {
             </option>
           ))}
         </select>
-        <select value={categoria} onChange={(evento) => { setCategoria(evento.target.value); setPagina(0) }} className={claseFiltro}>
+        <select value={categoria} onChange={(evento) => filtrar(() => setCategoria(evento.target.value))} className={claseFiltro}>
           <option value="">Todas las categorías</option>
           {(categorias.data || []).map((c) => (
             <option key={c.codigo} value={c.codigo}>
@@ -63,18 +71,18 @@ export default function ProductosPagina() {
             </option>
           ))}
         </select>
-        <div className="flex gap-2">
-          <Link to="/productos/categorias" className="flex items-center gap-2 border border-borde bg-superficie px-3 py-2 text-sm hover:bg-superficie-alt">
-            <i className="bi bi-tags" />
-            Categorías y marcas
+        {veExistencias && (
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={soloBajoMinimo} onChange={(evento) => filtrar(() => setSoloBajoMinimo(evento.target.checked))} className="accent-marca" />
+            Por acabarse
+          </label>
+        )}
+        {puedeGestionar && (
+          <Link to="/productos/nuevo" className="flex items-center justify-center gap-2 bg-marca px-3 py-2 text-sm text-sobre-marca hover:bg-marca-hover">
+            <i className="bi bi-plus-lg" />
+            Nuevo
           </Link>
-          {puedeGestionar && (
-            <Link to="/productos/nuevo" className="flex items-center gap-2 bg-marca px-3 py-2 text-sm text-sobre-marca hover:bg-marca-hover">
-              <i className="bi bi-plus-lg" />
-              Nuevo
-            </Link>
-          )}
-        </div>
+        )}
       </div>
 
       {productos.isError && <Alerta>{productos.error.message}</Alerta>}
@@ -87,34 +95,21 @@ export default function ProductosPagina() {
               <thead className="bg-superficie-alt text-left text-suave">
                 <tr>
                   <th className="px-3 py-2 font-medium">Nombre</th>
-                  <th className="hidden px-3 py-2 font-medium sm:table-cell">Tipo</th>
-                  <th className="hidden px-3 py-2 font-medium md:table-cell">Categoría</th>
-                  <th className="px-3 py-2 text-right font-medium whitespace-nowrap">Precio</th>
+                  <th className="hidden px-3 py-2 font-medium lg:table-cell">Lleva o gasta</th>
+                  {veExistencias && <th className="px-3 py-2 text-right font-medium whitespace-nowrap">Hay</th>}
+                  <th className="hidden px-3 py-2 text-right font-medium whitespace-nowrap sm:table-cell">Precio</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-borde">
                 {productos.data.content.length === 0 && (
                   <tr>
                     <td colSpan="4" className="px-3 py-8 text-center text-suave">
-                      No hay productos todavía
+                      No hay productos con esos filtros
                     </td>
                   </tr>
                 )}
                 {productos.data.content.map((p) => (
-                  <tr key={p.codigo} onClick={() => navegar('/productos/' + p.codigo)} className={'cursor-pointer hover:bg-superficie-alt ' + (p.activo ? '' : 'text-suave')}>
-                    <td className="px-3 py-2">
-                      <p className="font-medium">{p.nombre}</p>
-                      <p className="text-xs text-suave">
-                        {p.sku}
-                        {!p.activo && ' · inactivo'}
-                      </p>
-                    </td>
-                    <td className="hidden px-3 py-2 sm:table-cell">{nombreTipo(p.tipo)}</td>
-                    <td className="hidden px-3 py-2 md:table-cell">{p.categoria || '—'}</td>
-                    <td className="px-3 py-2 text-right whitespace-nowrap">
-                      {p.tipo === 'INSUMO' ? '—' : pesos(p.precioConImpuesto) + ' / ' + p.unidad}
-                    </td>
-                  </tr>
+                  <FilaProducto key={p.codigo} producto={p} veExistencias={veExistencias} onAbrir={() => navegar('/productos/' + p.codigo)} />
                 ))}
               </tbody>
             </table>

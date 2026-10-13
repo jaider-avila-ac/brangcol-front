@@ -1,26 +1,22 @@
 import { useState } from 'react'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { Link, useParams } from 'react-router'
 import Alerta from '../../components/ui/Alerta'
 import Cargando from '../../components/ui/Cargando'
 import Paginacion from '../../components/ui/Paginacion'
 import { cantidad, fechaHora, pesos } from '../../config/formato'
 import { tienePermiso, useSesion } from '../auth/useSesion'
-import { productosApi } from '../productos/api'
 import { inventarioApi } from './api'
 import Minimo from './Minimo'
 import { useBodegas } from './useBodegas'
 
 // Historia de un producto: cada entrada y salida con el saldo que quedo
-export default function Kardex() {
-  const { item } = useParams()
+export default function MovimientosProducto({ item }) {
   const { data: sesion } = useSesion()
   const bodegas = useBodegas()
   const [bodega, setBodega] = useState('')
   const [desde, setDesde] = useState('')
   const [hasta, setHasta] = useState('')
   const [pagina, setPagina] = useState(0)
-  const producto = useQuery({ queryKey: ['producto', item], queryFn: () => productosApi.obtener(item) })
   const filtro = { bodega, desde, hasta, pagina }
   const movimientos = useQuery({
     queryKey: ['kardex', item, filtro],
@@ -31,14 +27,6 @@ export default function Kardex() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Link to="/inventario" className="text-sm text-marca hover:underline">
-        <i className="bi bi-arrow-left" /> Volver
-      </Link>
-      {producto.data && (
-        <p className="text-lg font-semibold">
-          {producto.data.nombre} <span className="text-sm font-normal text-suave">{producto.data.sku}</span>
-        </p>
-      )}
 
       <div className="flex flex-col gap-3 md:flex-row md:items-end">
         <select value={bodega} onChange={(e) => { setBodega(e.target.value); setPagina(0) }} className={clase}>
@@ -59,6 +47,7 @@ export default function Kardex() {
         </label>
       </div>
 
+      {!bodega && tienePermiso(sesion, 'inventario:ajuste:gestionar') && <p className="text-xs text-suave">Elija una bodega para definir desde qué cantidad avisar que se está acabando.</p>}
       {bodega && tienePermiso(sesion, 'inventario:ajuste:gestionar') && <Minimo key={bodega} bodega={bodega} item={item} />}
 
       {movimientos.isError && <Alerta>{movimientos.error.message}</Alerta>}

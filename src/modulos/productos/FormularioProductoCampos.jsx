@@ -11,7 +11,6 @@ import { pesos } from '../../config/formato'
 import { tienePermiso, useSesion } from '../auth/useSesion'
 import { productosApi } from './api'
 import CodigosBarras from './CodigosBarras'
-import EditorReceta from './EditorReceta'
 import SelectorTipo from './SelectorTipo'
 import { ayudaReceta, componentesAPeticion, tituloReceta } from './receta'
 import TablaReceta from './TablaReceta'
@@ -29,7 +28,6 @@ export default function FormularioProductoCampos({ producto, impuestos, tipoInic
   const categorias = useCategorias()
   const marcas = useMarcas()
   const editable = tienePermiso(sesion, 'productos:item:gestionar')
-  const editaReceta = tienePermiso(sesion, 'productos:receta:gestionar')
   const { register, handleSubmit, control, formState, setValue } = useForm({ defaultValues: valoresIniciales(producto, impuestos, tipoInicial) })
   const [componentes, setComponentes] = useState([])
   const [rinde, setRinde] = useState(1)
@@ -66,7 +64,7 @@ export default function FormularioProductoCampos({ producto, impuestos, tipoInic
         navegar('/productos/' + datos.codigo, { replace: true, state: { aviso: avisoReceta } })
         return
       }
-      navegar(CON_RECETA.includes(datos.tipo) ? '/productos/recetas' : '/productos')
+      navegar('/productos')
     },
   })
   const estado = useMutation({
@@ -87,12 +85,11 @@ export default function FormularioProductoCampos({ producto, impuestos, tipoInic
 
   return (
     <div className="flex max-w-5xl flex-col gap-4">
-      <div className="flex items-center gap-3">
+      {!producto && (
         <Link to="/productos" className="text-sm text-marca hover:underline">
           <i className="bi bi-arrow-left" /> Volver
         </Link>
-        {producto && !producto.activo && <span className="border border-borde px-2 py-0.5 text-xs text-suave">Inactivo</span>}
-      </div>
+      )}
 
       <form onSubmit={handleSubmit((valores) => guardar.mutate(valores))} noValidate className="flex flex-col gap-4">
         {aviso && <Alerta>{aviso}</Alerta>}
@@ -171,7 +168,6 @@ export default function FormularioProductoCampos({ producto, impuestos, tipoInic
         )}
       </form>
 
-      {producto && CON_RECETA.includes(producto.tipo) && <EditorReceta producto={producto} editable={editaReceta} />}
     </div>
   )
 }

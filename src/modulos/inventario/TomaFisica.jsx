@@ -45,9 +45,6 @@ function Conteo({ bodegaInicial }) {
 
   return (
     <div className="flex max-w-4xl flex-col gap-4">
-      <Link to="/inventario" className="text-sm text-marca hover:underline">
-        <i className="bi bi-arrow-left" /> Volver
-      </Link>
       <p className="text-sm text-suave">Cuente lo que hay en la bodega y anótelo. Al aplicar, el sistema corrige las diferencias; los productos que deje en blanco no cambian.</p>
       {aplicar.isError && <Alerta>{aplicar.error.message}</Alerta>}
       {aplicar.isSuccess && (

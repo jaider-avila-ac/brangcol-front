@@ -50,7 +50,7 @@ export default function DetalleProduccion() {
         )}
       </section>
       <p className="text-sm">
-        <Link to={'/inventario/kardex/' + p.item} className="text-marca hover:underline">
+        <Link to={'/productos/' + p.item + '?ver=movimientos'} className="text-marca hover:underline">
           Ver los movimientos de {p.nombre}
         </Link>
       </p>

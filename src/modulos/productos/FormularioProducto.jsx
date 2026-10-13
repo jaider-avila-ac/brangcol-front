@@ -3,11 +3,13 @@ import { useParams, useSearchParams } from 'react-router'
 import Alerta from '../../components/ui/Alerta'
 import Cargando from '../../components/ui/Cargando'
 import { productosApi } from './api'
+import FichaProducto from './FichaProducto'
 import FormularioProductoCampos from './FormularioProductoCampos'
 import { TIPOS } from './tipos'
 import { useCategorias, useImpuestos, useMarcas, useUnidades } from './useCatalogosProducto'
 
-// Espera los catalogos antes de dibujar el formulario para que las listas muestren el valor guardado
+// Espera los catalogos antes de dibujar el formulario para que las listas muestren el valor guardado.
+// Un producto nuevo abre solo el formulario; uno existente abre su ficha completa.
 export default function FormularioProducto() {
   const { codigo } = useParams()
   const [parametros] = useSearchParams()
@@ -28,5 +30,8 @@ export default function FormularioProducto() {
   if (producto.isError) {
     return <Alerta>{producto.error.message}</Alerta>
   }
-  return <FormularioProductoCampos key={codigo || 'nuevo'} producto={codigo ? producto.data : null} impuestos={impuestos.data} tipoInicial={tipoInicial} />
+  if (codigo) {
+    return <FichaProducto key={codigo} producto={producto.data} impuestos={impuestos.data} />
+  }
+  return <FormularioProductoCampos key="nuevo" producto={null} impuestos={impuestos.data} tipoInicial={tipoInicial} />
 }
