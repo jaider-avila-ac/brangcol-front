@@ -1,6 +1,7 @@
 import { pesos } from '../../config/formato'
 import BuscadorComponente from './BuscadorComponente'
 import { costoFila, filaDesdeProducto } from './receta'
+import UnidadComponente from './UnidadComponente'
 
 // Componentes de un servicio, combo o fabricado con su costo. Las cantidades se escriben para "rinde" unidades
 export default function TablaReceta({ filas, onCambiar, editable, excluir, rinde, onRinde }) {
@@ -35,7 +36,7 @@ export default function TablaReceta({ filas, onCambiar, editable, excluir, rinde
           <thead className="text-left text-suave">
             <tr>
               <th className="py-1 font-medium">Lleva</th>
-              <th className="w-28 py-1 font-medium">Cantidad</th>
+              <th className="w-48 py-1 font-medium">Cantidad</th>
               <th className="w-24 py-1 font-medium">Merma %</th>
               <th className="hidden w-28 py-1 text-right font-medium sm:table-cell">Costo</th>
               <th className="w-8" />
@@ -48,7 +49,7 @@ export default function TablaReceta({ filas, onCambiar, editable, excluir, rinde
                 <td className="py-1.5">
                   <div className="flex items-center gap-1">
                     <input type="number" step="any" min="0" disabled={!editable} value={f.cantidad} onChange={(e) => cambiar(indice, 'cantidad', e.target.value)} className="w-20 border border-borde bg-superficie px-2 py-1" />
-                    <span className="text-xs text-suave">{f.unidad}</span>
+                    <UnidadComponente fila={f} editable={editable} onCambiar={(cambios) => onCambiar(filas.map((fila, i) => (i === indice ? { ...fila, ...cambios } : fila)))} />
                   </div>
                 </td>
                 <td className="py-1.5">

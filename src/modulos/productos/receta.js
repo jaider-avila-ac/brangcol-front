@@ -5,7 +5,11 @@ export function componentesAPeticion(filas, rinde) {
   const resultado = []
   for (const f of filas) {
     const cantidad = Math.round((Number(f.cantidad) / unidades) * 10000) / 10000
-    resultado.push({ item: f.item, cantidad, merma: Number(f.merma || 0) })
+    const componente = { item: f.item, cantidad, merma: Number(f.merma || 0) }
+    if (f.presentacion) {
+      componente.presentacion = f.presentacion
+    }
+    resultado.push(componente)
   }
   return resultado
 }
@@ -35,5 +39,5 @@ export function costoFila(f) {
 }
 
 export function filaDesdeProducto(item) {
-  return { item: item.codigo, nombre: item.nombre, unidad: item.unidad, cantidad: 1, merma: 0, costoUnitario: item.costoPromedio }
+  return { item: item.codigo, nombre: item.nombre, unidad: item.unidad, cantidad: 1, merma: 0, costoUnitario: item.costoPromedio, presentacion: null }
 }
