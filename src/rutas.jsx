@@ -16,6 +16,7 @@ import TercerosPagina from './modulos/terceros/TercerosPagina'
 import CategoriasMarcas from './modulos/productos/CategoriasMarcas'
 import FormularioProducto from './modulos/productos/FormularioProducto'
 import ProductosPagina from './modulos/productos/ProductosPagina'
+import RecetasPagina from './modulos/productos/RecetasPagina'
 import DetalleAjuste from './modulos/inventario/DetalleAjuste'
 import DetalleTraslado from './modulos/inventario/DetalleTraslado'
 import FormularioAjuste from './modulos/inventario/FormularioAjuste'
@@ -35,6 +36,7 @@ const construidas = [
   { path: 'productos', element: <ProductosPagina /> },
   { path: 'productos/nuevo', element: <FormularioProducto /> },
   { path: 'productos/categorias', element: <CategoriasMarcas /> },
+  { path: 'productos/recetas', element: <RecetasPagina /> },
   { path: 'productos/:codigo', element: <FormularioProducto /> },
   { path: 'inventario', element: <InventarioPagina /> },
   { path: 'inventario/ajustes/nuevo', element: <FormularioAjuste /> },

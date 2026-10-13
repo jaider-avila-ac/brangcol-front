@@ -3,14 +3,13 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router'
 import Alerta from '../../components/ui/Alerta'
 import Cargando from '../../components/ui/Cargando'
-import Imagen from '../../components/ui/Imagen'
 import Paginacion from '../../components/ui/Paginacion'
 import Titulo from '../../components/ui/Titulo'
 import { useDemora } from '../../components/ui/useDemora'
 import { pesos } from '../../config/formato'
 import { tienePermiso, useSesion } from '../auth/useSesion'
 import { productosApi } from './api'
-import { nombreTipo, TIPOS } from './tipos'
+import { FILTROS_TIPO, nombreTipo } from './tipos'
 import { useCategorias } from './useCatalogosProducto'
 
 export default function ProductosPagina() {
@@ -50,7 +49,7 @@ export default function ProductosPagina() {
         </div>
         <select value={tipo} onChange={(evento) => { setTipo(evento.target.value); setPagina(0) }} className={claseFiltro}>
           <option value="">Todos los tipos</option>
-          {TIPOS.map((t) => (
+          {FILTROS_TIPO.map((t) => (
             <option key={t.valor} value={t.valor}>
               {t.texto}
             </option>
@@ -104,16 +103,11 @@ export default function ProductosPagina() {
                 {productos.data.content.map((p) => (
                   <tr key={p.codigo} onClick={() => navegar('/productos/' + p.codigo)} className={'cursor-pointer hover:bg-superficie-alt ' + (p.activo ? '' : 'text-suave')}>
                     <td className="px-3 py-2">
-                      <div className="flex items-center gap-3">
-                        <Imagen codigo={p.foto} alt={p.nombre} />
-                        <div>
-                          <p className="font-medium">{p.nombre}</p>
-                          <p className="text-xs text-suave">
-                            {p.sku}
-                            {!p.activo && ' · inactivo'}
-                          </p>
-                        </div>
-                      </div>
+                      <p className="font-medium">{p.nombre}</p>
+                      <p className="text-xs text-suave">
+                        {p.sku}
+                        {!p.activo && ' · inactivo'}
+                      </p>
                     </td>
                     <td className="hidden px-3 py-2 sm:table-cell">{nombreTipo(p.tipo)}</td>
                     <td className="hidden px-3 py-2 md:table-cell">{p.categoria || '—'}</td>

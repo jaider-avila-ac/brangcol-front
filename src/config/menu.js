@@ -20,10 +20,18 @@ export const menu = [
     items: [{ ruta: '/terceros', texto: 'Clientes y proveedores', icono: 'bi-people', permiso: 'terceros:tercero:consultar' }],
   },
   {
-    grupo: 'Inventario',
+    grupo: 'Productos y servicios',
     icono: 'bi-box-seam',
     items: [
-      { ruta: '/productos', texto: 'Productos', icono: 'bi-box-seam', permiso: 'productos:item:consultar' },
+      { ruta: '/productos', texto: 'Productos y servicios', icono: 'bi-box-seam', permiso: 'productos:item:consultar' },
+      { ruta: '/productos/recetas', texto: 'Recetas y combos', icono: 'bi-diagram-3', permiso: 'productos:item:consultar' },
+      { ruta: '/productos/categorias', texto: 'Categorías y marcas', icono: 'bi-tags', permiso: 'productos:item:consultar' },
+    ],
+  },
+  {
+    grupo: 'Inventario',
+    icono: 'bi-boxes',
+    items: [
       { ruta: '/inventario', texto: 'Existencias', icono: 'bi-boxes', permiso: 'inventario:existencia:consultar' },
       { ruta: '/compras', texto: 'Compras', icono: 'bi-cart3', permiso: 'compras:compra:consultar' },
     ],
@@ -61,14 +69,22 @@ export function itemsDelMenu() {
   return items
 }
 
+// La opcion del menu que corresponde a una ruta: la mas especifica (/productos/recetas antes que /productos)
 export function ubicacion(ruta) {
   if (ruta === '/mi-cuenta') {
     return { grupo: 'Cuenta', texto: 'Mi cuenta' }
   }
+  let elegido = null
   for (const item of itemsDelMenu()) {
-    if (item.ruta === ruta || (item.ruta !== '/' && ruta.startsWith(item.ruta + '/'))) {
-      return item
+    const coincide = item.ruta === ruta || (item.ruta !== '/' && ruta.startsWith(item.ruta + '/'))
+    if (coincide && (!elegido || item.ruta.length > elegido.ruta.length)) {
+      elegido = item
     }
   }
-  return null
+  return elegido
+}
+
+export function rutaActiva(ruta) {
+  const item = ubicacion(ruta)
+  return item ? item.ruta : null
 }

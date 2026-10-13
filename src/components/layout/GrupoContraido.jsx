@@ -1,10 +1,11 @@
 import { NavLink, useLocation } from 'react-router'
+import { rutaActiva } from '../../config/menu'
 
 function grupoActivo(grupo, ruta) {
   return grupo.items.some((item) => (item.ruta === '/' ? ruta === '/' : ruta.startsWith(item.ruta)))
 }
 
-function claseItem({ isActive }) {
+function claseItem(isActive) {
   const base = 'flex items-center px-4 py-2.5 text-sm '
   if (isActive) {
     return base + 'bg-lateral-activo font-semibold text-sobre-marca'
@@ -46,7 +47,7 @@ export default function GrupoContraido({ grupo }) {
       <div className="absolute top-0 left-full z-50 hidden min-w-48 bg-lateral-hover py-1 shadow-xl group-hover:block">
         <p className="px-4 py-2 text-sm font-semibold text-sobre-lateral">{grupo.grupo}</p>
         {grupo.items.map((item) => (
-          <NavLink key={item.ruta} to={item.ruta} className={claseItem}>
+          <NavLink key={item.ruta} to={item.ruta} className={() => claseItem(rutaActiva(pathname) === item.ruta)}>
             {item.texto}
           </NavLink>
         ))}

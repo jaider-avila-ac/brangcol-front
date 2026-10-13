@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router'
+import { rutaActiva } from '../../config/menu'
 
 function grupoActivo(grupo, ruta) {
   return grupo.items.some((item) => (item.ruta === '/' ? ruta === '/' : ruta.startsWith(item.ruta)))
 }
 
-function claseEnlace({ isActive }) {
+function claseEnlace(isActive) {
   const base = 'flex items-center gap-3 px-3 py-2.5 text-sm '
   if (isActive) {
     return base + 'bg-lateral-activo font-semibold text-sobre-marca'
@@ -22,7 +23,7 @@ export default function GrupoMenu({ grupo, onNavegar }) {
     const item = grupo.items[0]
     return (
       <div className="px-2.5 pb-1">
-        <NavLink to={item.ruta} end={item.ruta === '/'} onClick={onNavegar} className={claseEnlace}>
+        <NavLink to={item.ruta} onClick={onNavegar} className={() => claseEnlace(rutaActiva(pathname) === item.ruta)}>
           <i className={'bi ' + grupo.icono + ' text-base'} />
           {grupo.grupo}
         </NavLink>
@@ -44,7 +45,7 @@ export default function GrupoMenu({ grupo, onNavegar }) {
       {abierto && (
         <div className="ml-4.5 border-l border-lateral-linea pl-2">
           {grupo.items.map((item) => (
-            <NavLink key={item.ruta} to={item.ruta} onClick={onNavegar} className={claseEnlace}>
+            <NavLink key={item.ruta} to={item.ruta} onClick={onNavegar} className={() => claseEnlace(rutaActiva(pathname) === item.ruta)}>
               {item.texto}
             </NavLink>
           ))}

@@ -19,12 +19,17 @@ export default function BuscadorComponente({ excluir, onElegir }) {
       <input
         value={texto}
         onChange={(evento) => setTexto(evento.target.value)}
-        placeholder="Agregar insumo: escriba su nombre"
+        onKeyDown={(evento) => {
+          if (evento.key === 'Enter') {
+            evento.preventDefault()
+          }
+        }}
+        placeholder="Agregar: escriba el nombre del producto o insumo"
         className="w-full border border-borde bg-superficie py-2 pr-3 pl-9 text-sm outline-none focus:border-marca"
       />
       {busqueda.length >= 2 && resultados.data && (
         <ul className="absolute top-full right-0 left-0 z-20 max-h-60 overflow-y-auto border border-borde bg-superficie shadow-md">
-          {lista.length === 0 && <li className="px-3 py-2 text-sm text-suave">No hay insumos con ese nombre</li>}
+          {lista.length === 0 && <li className="px-3 py-2 text-sm text-suave">No hay productos con ese nombre</li>}
           {lista.map((item) => (
             <li key={item.codigo}>
               <button

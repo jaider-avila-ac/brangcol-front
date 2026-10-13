@@ -10,10 +10,10 @@ export function tarifaDe(impuestos, codigo) {
   return impuesto ? Number(impuesto.tarifa) : 0
 }
 
-export function valoresIniciales(producto, impuestos) {
+export function valoresIniciales(producto, impuestos, tipoInicial) {
   if (!producto) {
     return {
-      tipo: 'SIMPLE',
+      tipo: tipoInicial || 'SIMPLE',
       nombre: '',
       sku: '',
       descripcion: '',

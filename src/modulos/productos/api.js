@@ -1,5 +1,4 @@
 import { api } from '../../api/cliente'
-import { formularioImagen } from '../../api/imagenes'
 
 export const productosApi = {
   buscar: (filtro) => {
@@ -18,9 +17,9 @@ export const productosApi = {
   crear: (datos) => api.post('/productos', datos),
   actualizar: (codigo, datos) => api.put('/productos/' + codigo, datos),
   cambiarEstado: (codigo, activo) => api.put('/productos/' + codigo + '/estado', { activo }),
+  recetas: (texto) => api.get('/productos/recetas?texto=' + encodeURIComponent(texto || '')),
   receta: (codigo) => api.get('/productos/' + codigo + '/receta'),
   guardarReceta: (codigo, componentes) => api.put('/productos/' + codigo + '/receta', { componentes }),
-  subirFoto: (codigo, archivo) => api.subir('/productos/' + codigo + '/foto', formularioImagen(archivo)),
   categorias: () => api.get('/productos/categorias'),
   crearCategoria: (datos) => api.post('/productos/categorias', datos),
   actualizarCategoria: (codigo, datos) => api.put('/productos/categorias/' + codigo, datos),
