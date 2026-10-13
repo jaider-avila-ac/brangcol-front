@@ -4,7 +4,7 @@ import Alerta from '../../components/ui/Alerta'
 import Boton from '../../components/ui/Boton'
 import Cargando from '../../components/ui/Cargando'
 import { productosApi } from './api'
-import { componentesAPeticion, tituloReceta } from './receta'
+import { ayudaReceta, componentesAPeticion, tituloReceta } from './receta'
 import TablaReceta from './TablaReceta'
 
 export default function EditorReceta({ producto, editable }) {
@@ -19,8 +19,9 @@ export default function EditorReceta({ producto, editable }) {
 
 function Contenido({ producto, receta, editable, consultas }) {
   const [filas, setFilas] = useState(receta.componentes)
+  const [rinde, setRinde] = useState(1)
   const guardar = useMutation({
-    mutationFn: () => productosApi.guardarReceta(producto.codigo, componentesAPeticion(filas)),
+    mutationFn: () => productosApi.guardarReceta(producto.codigo, componentesAPeticion(filas, rinde)),
     onSuccess: (datos) => {
       consultas.setQueryData(['receta', producto.codigo], datos)
       consultas.invalidateQueries({ queryKey: ['recetas'] })
@@ -31,14 +32,14 @@ function Contenido({ producto, receta, editable, consultas }) {
     <section className="flex flex-col gap-3 border border-borde bg-superficie p-4">
       <div>
         <p className="font-semibold">{tituloReceta(producto.tipo)}</p>
-        <p className="text-xs text-suave">Cantidad por cada unidad vendida. Al vender se descuentan de las existencias.</p>
+        <p className="text-xs text-suave">{ayudaReceta(producto.tipo)}</p>
       </div>
       {guardar.isError && <Alerta>{guardar.error.message}</Alerta>}
       {guardar.isSuccess && <Alerta tipo="exito">Receta guardada.</Alerta>}
       {receta.bloqueada && editable && (
         <Alerta tipo="info">Esta receta ya se usó en ventas: al guardar cambios se crea una versión nueva y las ventas anteriores no cambian.</Alerta>
       )}
-      <TablaReceta filas={filas} onCambiar={setFilas} editable={editable} excluir={producto.codigo} />
+      <TablaReceta filas={filas} onCambiar={setFilas} editable={editable} excluir={producto.codigo} rinde={rinde} onRinde={setRinde} />
       {editable && (
         <div className="border-t border-borde pt-3">
           <Boton icono="bi-check-lg" cargando={guardar.isPending} disabled={filas.length === 0} onClick={() => guardar.mutate()}>

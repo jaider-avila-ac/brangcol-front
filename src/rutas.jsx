@@ -24,6 +24,8 @@ import FormularioTraslado from './modulos/inventario/FormularioTraslado'
 import InventarioPagina from './modulos/inventario/InventarioPagina'
 import Kardex from './modulos/inventario/Kardex'
 import TomaFisica from './modulos/inventario/TomaFisica'
+import DetalleProduccion from './modulos/inventario/DetalleProduccion'
+import FormularioProduccion from './modulos/inventario/FormularioProduccion'
 
 const construidas = [
   { path: 'mi-cuenta', element: <MiCuenta /> },
@@ -44,6 +46,8 @@ const construidas = [
   { path: 'inventario/traslados/nuevo', element: <FormularioTraslado /> },
   { path: 'inventario/traslados/:codigo', element: <DetalleTraslado /> },
   { path: 'inventario/conteo', element: <TomaFisica /> },
+  { path: 'inventario/produccion/nueva', element: <FormularioProduccion /> },
+  { path: 'inventario/produccion/:codigo', element: <DetalleProduccion /> },
   { path: 'inventario/kardex/:item', element: <Kardex /> },
 ]
 

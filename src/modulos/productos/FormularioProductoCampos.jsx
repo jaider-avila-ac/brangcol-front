@@ -13,9 +13,9 @@ import { productosApi } from './api'
 import CodigosBarras from './CodigosBarras'
 import EditorReceta from './EditorReceta'
 import SelectorTipo from './SelectorTipo'
-import { componentesAPeticion, tituloReceta } from './receta'
+import { ayudaReceta, componentesAPeticion, tituloReceta } from './receta'
 import TablaReceta from './TablaReceta'
-import { CON_RECETA, FISICOS } from './tipos'
+import { CON_RECETA, FISICOS, RECETA_OBLIGATORIA } from './tipos'
 import UnidadesAlternas from './UnidadesAlternas'
 import { useCategorias, useMarcas, useUnidades } from './useCatalogosProducto'
 import { aPeticion, tarifaDe, valoresIniciales } from './valoresProducto'
@@ -32,6 +32,7 @@ export default function FormularioProductoCampos({ producto, impuestos, tipoInic
   const editaReceta = tienePermiso(sesion, 'productos:receta:gestionar')
   const { register, handleSubmit, control, formState, setValue } = useForm({ defaultValues: valoresIniciales(producto, impuestos, tipoInicial) })
   const [componentes, setComponentes] = useState([])
+  const [rinde, setRinde] = useState(1)
   const aviso = ubicacion.state && ubicacion.state.aviso
   const [tipo, unidad, impuesto, precio, incluyeImpuesto] = useWatch({ control, name: ['tipo', 'unidad', 'impuesto', 'precio', 'incluyeImpuesto'] })
   const errores = formState.errors
@@ -44,13 +45,13 @@ export default function FormularioProductoCampos({ producto, impuestos, tipoInic
       if (producto) {
         return { datos: await productosApi.actualizar(producto.codigo, aPeticion(valores, impuestos)) }
       }
-      if (valores.tipo === 'COMPUESTO' && componentes.length === 0) {
-        throw new Error('Agregue los productos que lleva el combo o receta')
+      if (RECETA_OBLIGATORIA.includes(valores.tipo) && componentes.length === 0) {
+        throw new Error(valores.tipo === 'FABRICADO' ? 'Indique lo que gasta al producirlo' : 'Agregue los productos que lleva el combo o receta')
       }
       const datos = await productosApi.crear(aPeticion(valores, impuestos))
       if (CON_RECETA.includes(datos.tipo) && componentes.length > 0) {
         try {
-          await productosApi.guardarReceta(datos.codigo, componentesAPeticion(componentes))
+          await productosApi.guardarReceta(datos.codigo, componentesAPeticion(componentes, rinde))
         } catch (error) {
           return { datos, aviso: 'El producto se creó, pero lo que lleva no se guardó: ' + error.message }
         }
@@ -150,9 +151,9 @@ export default function FormularioProductoCampos({ producto, impuestos, tipoInic
           <section className="flex flex-col gap-3 border border-borde bg-superficie p-4">
             <div>
               <p className="font-semibold">{tituloReceta(tipo)}</p>
-              <p className="text-xs text-suave">Cantidad por cada unidad vendida. Al vender se descuentan de las existencias.</p>
+              <p className="text-xs text-suave">{ayudaReceta(tipo)}</p>
             </div>
-            <TablaReceta filas={componentes} onCambiar={setComponentes} editable={editable} />
+            <TablaReceta filas={componentes} onCambiar={setComponentes} editable={editable} rinde={rinde} onRinde={setRinde} />
           </section>
         )}
 

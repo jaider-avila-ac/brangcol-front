@@ -25,7 +25,7 @@ export default function RecetasPagina() {
 
   return (
     <>
-      <Titulo>Lo que lleva cada combo y cada servicio. Al venderlos, el sistema descuenta esto del inventario.</Titulo>
+      <Titulo>Lo que lleva cada combo, servicio y fabricado. El sistema lo descuenta del inventario al vender o al producir.</Titulo>
 
       <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center">
         <div className="relative flex-1">
@@ -39,6 +39,10 @@ export default function RecetasPagina() {
         </div>
         {puedeGestionar && (
           <div className="flex gap-2">
+            <Link to="/productos/nuevo?tipo=FABRICADO" className="flex items-center gap-2 border border-borde bg-superficie px-3 py-2 text-sm hover:bg-superficie-alt">
+              <i className="bi bi-plus-lg" />
+              Fabricado
+            </Link>
             <Link to="/productos/nuevo?tipo=SERVICIO" className="flex items-center gap-2 border border-borde bg-superficie px-3 py-2 text-sm hover:bg-superficie-alt">
               <i className="bi bi-plus-lg" />
               Servicio
@@ -69,7 +73,7 @@ export default function RecetasPagina() {
               {recetas.data.length === 0 && (
                 <tr>
                   <td colSpan="4" className="px-3 py-8 text-center text-suave">
-                    Todavía no hay combos ni servicios
+                    Todavía no hay combos, servicios ni fabricados
                   </td>
                 </tr>
               )}
@@ -84,7 +88,7 @@ export default function RecetasPagina() {
                   <td className="px-3 py-2">
                     {r.cantidadComponentes === 0 ? (
                       <span className={r.tipo === 'SERVICIO' ? 'text-suave' : 'font-semibold text-marca'}>
-                        {r.tipo === 'SERVICIO' ? 'No gasta insumos' : 'Falta indicar lo que lleva'}
+                        {r.tipo === 'SERVICIO' ? 'No gasta insumos' : r.tipo === 'FABRICADO' ? 'Falta indicar lo que gasta' : 'Falta indicar lo que lleva'}
                       </span>
                     ) : (
                       r.componentes

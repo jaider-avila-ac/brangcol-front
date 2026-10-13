@@ -1,13 +1,33 @@
-export function componentesAPeticion(filas) {
+// Las cantidades se pueden escribir para varias unidades (100 hojas para 100 sobres);
+// al servidor siempre va lo que gasta una unidad
+export function componentesAPeticion(filas, rinde) {
+  const unidades = Number(rinde) > 0 ? Number(rinde) : 1
   const resultado = []
   for (const f of filas) {
-    resultado.push({ item: f.item, cantidad: Number(f.cantidad), merma: Number(f.merma || 0) })
+    const cantidad = Math.round((Number(f.cantidad) / unidades) * 10000) / 10000
+    resultado.push({ item: f.item, cantidad, merma: Number(f.merma || 0) })
   }
   return resultado
 }
 
+const TITULOS = {
+  SERVICIO: 'Insumos que gasta',
+  COMPUESTO: 'Lo que lleva',
+  FABRICADO: 'Lo que gasta al producirlo',
+}
+
+const AYUDAS = {
+  SERVICIO: 'Al vender el servicio se descuentan de las existencias.',
+  COMPUESTO: 'Al vender el combo se descuentan de las existencias.',
+  FABRICADO: 'Al registrar una producción se descuentan y entra el producto terminado a las existencias.',
+}
+
 export function tituloReceta(tipo) {
-  return tipo === 'SERVICIO' ? 'Insumos que gasta' : 'Lo que lleva'
+  return TITULOS[tipo] || 'Lo que lleva'
+}
+
+export function ayudaReceta(tipo) {
+  return AYUDAS[tipo] || ''
 }
 
 export function costoFila(f) {

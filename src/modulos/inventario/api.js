@@ -28,4 +28,8 @@ export const inventarioApi = {
   recibirTraslado: (codigo, lineas) => api.post('/inventario/traslados/' + codigo + '/recibir', { lineas }),
   anularTraslado: (codigo, motivo) => api.post('/inventario/traslados/' + codigo + '/anular', { motivo }),
   registrarConteo: (datos) => api.post('/inventario/conteos', datos),
+  producciones: (pagina) => api.get('/inventario/producciones?pagina=' + pagina),
+  produccion: (codigo) => api.get('/inventario/producciones/' + codigo),
+  registrarProduccion: (datos) => api.post('/inventario/producciones', datos),
+  anularProduccion: (codigo, motivo) => api.post('/inventario/producciones/' + codigo + '/anular', { motivo }),
 }

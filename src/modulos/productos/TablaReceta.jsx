@@ -2,8 +2,8 @@ import { pesos } from '../../config/formato'
 import BuscadorComponente from './BuscadorComponente'
 import { costoFila, filaDesdeProducto } from './receta'
 
-// Componentes de un servicio, combo o fabricado: cantidad por cada unidad vendida y su costo
-export default function TablaReceta({ filas, onCambiar, editable, excluir }) {
+// Componentes de un servicio, combo o fabricado con su costo. Las cantidades se escriben para "rinde" unidades
+export default function TablaReceta({ filas, onCambiar, editable, excluir, rinde, onRinde }) {
   function cambiar(indice, campo, valor) {
     onCambiar(filas.map((fila, i) => (i === indice ? { ...fila, [campo]: valor } : fila)))
   }
@@ -14,6 +14,7 @@ export default function TablaReceta({ filas, onCambiar, editable, excluir }) {
     }
   }
 
+  const unidades = Number(rinde) > 0 ? Number(rinde) : 1
   let costo = 0
   for (const f of filas) {
     costo += costoFila(f)
@@ -21,6 +22,14 @@ export default function TablaReceta({ filas, onCambiar, editable, excluir }) {
 
   return (
     <div className="flex flex-col gap-3">
+      {editable && (
+        <label className="flex flex-wrap items-center gap-2 text-sm">
+          Las cantidades de abajo son para
+          <input type="number" min="1" step="1" value={rinde} onChange={(e) => onRinde(e.target.value)} className="w-24 border border-borde bg-superficie px-2 py-1" />
+          unidades
+          <span className="text-xs text-suave">(ej. 100 hojas para 100 sobres)</span>
+        </label>
+      )}
       {filas.length > 0 && (
         <table className="w-full text-sm">
           <thead className="text-left text-suave">
@@ -60,7 +69,7 @@ export default function TablaReceta({ filas, onCambiar, editable, excluir }) {
       )}
       {editable && <BuscadorComponente excluir={excluir} onElegir={agregar} />}
       <p className="text-sm">
-        Costo estimado: <strong>{pesos(costo)}</strong>
+        Costo estimado por unidad: <strong>{pesos(costo / unidades)}</strong>
       </p>
     </div>
   )

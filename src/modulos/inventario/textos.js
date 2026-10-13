@@ -11,4 +11,6 @@ export const ESTADOS = {
   ENVIADO: 'En camino',
   RECIBIDO: 'Recibido',
   BORRADOR: 'Borrador',
+  EJECUTADA: 'Hecha',
+  ANULADA: 'Anulada',
 }
