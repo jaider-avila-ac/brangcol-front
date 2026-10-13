@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import Alerta from '../../components/ui/Alerta'
-import Boton from '../../components/ui/Boton'
+import Alerta from './Alerta'
+import Boton from './Boton'
 
-// Lista simple de nombres (categorias o marcas): agregar, renombrar y activar o desactivar
+// Lista simple de nombres (categorias, marcas o bodegas): agregar, renombrar y activar o desactivar
 export default function ListaNombres({ titulo, items, editable, error, guardando, onCrear, onActualizar, detalle }) {
   const [nuevo, setNuevo] = useState('')
   const [editando, setEditando] = useState(null)

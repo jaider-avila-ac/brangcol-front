@@ -16,6 +16,13 @@ import TercerosPagina from './modulos/terceros/TercerosPagina'
 import CategoriasMarcas from './modulos/productos/CategoriasMarcas'
 import FormularioProducto from './modulos/productos/FormularioProducto'
 import ProductosPagina from './modulos/productos/ProductosPagina'
+import DetalleAjuste from './modulos/inventario/DetalleAjuste'
+import DetalleTraslado from './modulos/inventario/DetalleTraslado'
+import FormularioAjuste from './modulos/inventario/FormularioAjuste'
+import FormularioTraslado from './modulos/inventario/FormularioTraslado'
+import InventarioPagina from './modulos/inventario/InventarioPagina'
+import Kardex from './modulos/inventario/Kardex'
+import TomaFisica from './modulos/inventario/TomaFisica'
 
 const construidas = [
   { path: 'mi-cuenta', element: <MiCuenta /> },
@@ -29,6 +36,13 @@ const construidas = [
   { path: 'productos/nuevo', element: <FormularioProducto /> },
   { path: 'productos/categorias', element: <CategoriasMarcas /> },
   { path: 'productos/:codigo', element: <FormularioProducto /> },
+  { path: 'inventario', element: <InventarioPagina /> },
+  { path: 'inventario/ajustes/nuevo', element: <FormularioAjuste /> },
+  { path: 'inventario/ajustes/:codigo', element: <DetalleAjuste /> },
+  { path: 'inventario/traslados/nuevo', element: <FormularioTraslado /> },
+  { path: 'inventario/traslados/:codigo', element: <DetalleTraslado /> },
+  { path: 'inventario/conteo', element: <TomaFisica /> },
+  { path: 'inventario/kardex/:item', element: <Kardex /> },
 ]
 
 const rutasConstruidas = construidas.map((ruta) => '/' + ruta.path)

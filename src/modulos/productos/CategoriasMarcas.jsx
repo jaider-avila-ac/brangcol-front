@@ -4,7 +4,7 @@ import Cargando from '../../components/ui/Cargando'
 import Titulo from '../../components/ui/Titulo'
 import { tienePermiso, useSesion } from '../auth/useSesion'
 import { productosApi } from './api'
-import ListaNombres from './ListaNombres'
+import ListaNombres from '../../components/ui/ListaNombres'
 import { useCategorias, useMarcas } from './useCatalogosProducto'
 
 export default function CategoriasMarcas() {
